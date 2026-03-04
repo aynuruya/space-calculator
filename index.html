@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Cosmic Calculator</title>
+  <title>Noor's Cosmic Control Panel</title>
   <style>
     body {
       margin: 0;
@@ -12,9 +12,9 @@
       align-items: center;
       font-family: 'Segoe UI', sans-serif;
       background: black;
+      color: white;
     }
 
-    /* Starfield background */
     canvas {
       position: absolute;
       top: 0;
@@ -22,77 +22,78 @@
       z-index: 0;
     }
 
-    .calculator {
+    .container {
       position: relative;
       z-index: 2;
       background: rgba(15, 15, 30, 0.9);
       padding: 25px;
       border-radius: 25px;
-      box-shadow: 0 0 50px rgba(0, 255, 255, 0.4);
+      box-shadow: 0 0 60px rgba(0, 255, 255, 0.4);
       backdrop-filter: blur(10px);
-      width: 320px;
-      transition: 0.4s;
+      width: 350px;
     }
 
-    #display {
-      width: 100%;
-      height: 60px;
-      background: black;
-      border: none;
-      border-radius: 12px;
+    .clock {
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 10px;
       color: #00f7ff;
-      font-size: 24px;
-      text-align: right;
-      padding: 10px;
+    }
+
+    .mode-buttons {
+      text-align: center;
       margin-bottom: 15px;
-      box-shadow: inset 0 0 15px rgba(0, 255, 255, 0.6);
+    }
+
+    .mode-buttons button {
+      margin: 5px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: none;
+      background: #1c1c2b;
+      color: white;
+      cursor: pointer;
+    }
+
+    input {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      border: none;
+      background: black;
+      color: #00f7ff;
+      text-align: right;
     }
 
     .buttons {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
+      gap: 10px;
     }
 
-    button {
-      padding: 15px;
+    button.calc-btn {
+      padding: 12px;
+      border-radius: 10px;
       border: none;
-      border-radius: 15px;
-      font-size: 18px;
-      cursor: pointer;
       background: #1c1c2b;
       color: white;
-      transition: 0.2s;
-      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+      cursor: pointer;
     }
 
-    button:hover {
+    button.calc-btn:hover {
       background: #00f7ff;
       color: black;
-      transform: scale(1.1);
-      box-shadow: 0 0 25px #00f7ff;
     }
 
-    .equal {
-      grid-column: span 2;
-      background: #ff00c8;
+    .hidden {
+      display: none;
     }
 
-    .equal:hover {
-      background: #ff66e0;
-      box-shadow: 0 0 25px #ff66e0;
-    }
-
-    .mode-toggle {
-      margin-top: 15px;
+    .result {
       text-align: center;
-      font-size: 12px;
-      cursor: pointer;
-      color: #aaa;
-    }
-
-    .pink-mode {
-      box-shadow: 0 0 50px rgba(255, 0, 200, 0.6);
+      margin-top: 10px;
+      color: #ff00c8;
     }
   </style>
 </head>
@@ -100,79 +101,102 @@
 
 <canvas id="stars"></canvas>
 
-<div class="calculator" id="calc">
-  <input type="text" id="display" disabled>
+<div class="container">
 
-  <div class="buttons">
-    <button onclick="clearDisplay()">C</button>
-    <button onclick="append('/')">/</button>
-    <button onclick="append('*')">*</button>
-    <button onclick="append('-')">-</button>
+  <div class="clock" id="clock"></div>
 
-    <button onclick="append('7')">7</button>
-    <button onclick="append('8')">8</button>
-    <button onclick="append('9')">9</button>
-    <button onclick="append('+')">+</button>
-
-    <button onclick="append('4')">4</button>
-    <button onclick="append('5')">5</button>
-    <button onclick="append('6')">6</button>
-    <button onclick="append('.')">.</button>
-
-    <button onclick="append('1')">1</button>
-    <button onclick="append('2')">2</button>
-    <button onclick="append('3')">3</button>
-    <button onclick="calculate()" class="equal">=</button>
-
-    <button onclick="append('0')" style="grid-column: span 4;">0</button>
+  <div class="mode-buttons">
+    <button onclick="showCalc()">Calculator</button>
+    <button onclick="showCompound()">Compound 💸</button>
   </div>
 
-  <div class="mode-toggle" onclick="toggleMode()">
-    ✨ Toggle Pink Nebula Mode ✨
+  <!-- NORMAL CALCULATOR -->
+  <div id="calcMode">
+    <input type="text" id="display" disabled>
+    <div class="buttons">
+      <button class="calc-btn" onclick="append('7')">7</button>
+      <button class="calc-btn" onclick="append('8')">8</button>
+      <button class="calc-btn" onclick="append('9')">9</button>
+      <button class="calc-btn" onclick="append('/')">/</button>
+
+      <button class="calc-btn" onclick="append('4')">4</button>
+      <button class="calc-btn" onclick="append('5')">5</button>
+      <button class="calc-btn" onclick="append('6')">6</button>
+      <button class="calc-btn" onclick="append('*')">*</button>
+
+      <button class="calc-btn" onclick="append('1')">1</button>
+      <button class="calc-btn" onclick="append('2')">2</button>
+      <button class="calc-btn" onclick="append('3')">3</button>
+      <button class="calc-btn" onclick="append('-')">-</button>
+
+      <button class="calc-btn" onclick="append('0')">0</button>
+      <button class="calc-btn" onclick="append('.')">.</button>
+      <button class="calc-btn" onclick="calculate()">=</button>
+      <button class="calc-btn" onclick="append('+')">+</button>
+    </div>
   </div>
+
+  <!-- COMPOUND INTEREST MODE -->
+  <div id="compoundMode" class="hidden">
+    <input type="number" id="principal" placeholder="Principal (₹)">
+    <input type="number" id="rate" placeholder="Annual Rate (%)">
+    <input type="number" id="years" placeholder="Years">
+    <button onclick="calculateCompound()">Calculate Growth 🚀</button>
+    <div class="result" id="compoundResult"></div>
+  </div>
+
 </div>
-
-<audio id="clickSound">
-  <source src="https://assets.mixkit.co/sfx/preview/mixkit-interface-click-1126.mp3" type="audio/mpeg">
-</audio>
 
 <script>
   function append(value) {
     document.getElementById("display").value += value;
-    playSound();
-  }
-
-  function clearDisplay() {
-    document.getElementById("display").value = "";
   }
 
   function calculate() {
     try {
       document.getElementById("display").value =
         eval(document.getElementById("display").value);
-      playSound();
     } catch {
       document.getElementById("display").value = "Error";
     }
   }
 
-  function playSound() {
-    document.getElementById("clickSound").play();
+  function showCalc() {
+    document.getElementById("calcMode").classList.remove("hidden");
+    document.getElementById("compoundMode").classList.add("hidden");
   }
 
-  function toggleMode() {
-    document.getElementById("calc").classList.toggle("pink-mode");
+  function showCompound() {
+    document.getElementById("calcMode").classList.add("hidden");
+    document.getElementById("compoundMode").classList.remove("hidden");
   }
 
-  /* Star animation */
+  function calculateCompound() {
+    let p = parseFloat(document.getElementById("principal").value);
+    let r = parseFloat(document.getElementById("rate").value) / 100;
+    let t = parseFloat(document.getElementById("years").value);
+
+    let amount = p * Math.pow((1 + r), t);
+    document.getElementById("compoundResult").innerHTML =
+      "Future Value: ₹ " + amount.toFixed(2);
+  }
+
+  // CLOCK
+  function updateClock() {
+    const now = new Date();
+    document.getElementById("clock").innerHTML =
+      now.toLocaleTimeString();
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // STAR BACKGROUND
   const canvas = document.getElementById("stars");
   const ctx = canvas.getContext("2d");
-
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
   const stars = [];
-
   for (let i = 0; i < 200; i++) {
     stars.push({
       x: Math.random() * canvas.width,
