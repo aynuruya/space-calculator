@@ -55,6 +55,53 @@
       cursor: pointer;
     }
 
+    .saturn {
+  position: absolute;
+  top: 15%;
+  left: 10%;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, #d4a373, #8b5e34);
+  border-radius: 50%;
+  box-shadow: 0 0 40px #d4a373;
+  animation: float 6s ease-in-out infinite;
+  }
+
+.saturn::after {
+  content: "";
+  position: absolute;
+  width: 160px;
+  height: 40px;
+  border: 4px solid #c9ada7;
+  border-radius: 50%;
+  top: 40px;
+  left: -20px;
+  transform: rotate(20deg);
+}
+
+.moon {
+  position: absolute;
+  bottom: 20%;
+  right: 15%;
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, #eee, #aaa);
+  border-radius: 50%;
+  box-shadow: 0 0 25px #fff;
+  animation: drift 10s linear infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes drift {
+  0% { transform: translateX(0px); }
+  50% { transform: translateX(-40px); }
+  100% { transform: translateX(0px); }
+}
+    
     input {
       width: 100%;
       padding: 8px;
@@ -100,7 +147,8 @@
 <body>
 
 <canvas id="stars"></canvas>
-
+<div class="saturn"></div>
+<div class="moon"></div>
 <div class="container">
 
   <div class="clock" id="clock"></div>
@@ -113,27 +161,29 @@
   <!-- NORMAL CALCULATOR -->
   <div id="calcMode">
     <input type="text" id="display" disabled>
-    <div class="buttons">
-      <button class="calc-btn" onclick="append('7')">7</button>
-      <button class="calc-btn" onclick="append('8')">8</button>
-      <button class="calc-btn" onclick="append('9')">9</button>
-      <button class="calc-btn" onclick="append('/')">/</button>
+   <div class="buttons">
+  <button class="calc-btn" onclick="clearDisplay()">C</button>
+  <button class="calc-btn" onclick="backspace()">⌫</button>
+  <button class="calc-btn" onclick="append('/')">/</button>
+  <button class="calc-btn" onclick="append('*')">*</button>
 
-      <button class="calc-btn" onclick="append('4')">4</button>
-      <button class="calc-btn" onclick="append('5')">5</button>
-      <button class="calc-btn" onclick="append('6')">6</button>
-      <button class="calc-btn" onclick="append('*')">*</button>
+  <button class="calc-btn" onclick="append('7')">7</button>
+  <button class="calc-btn" onclick="append('8')">8</button>
+  <button class="calc-btn" onclick="append('9')">9</button>
+  <button class="calc-btn" onclick="append('-')">-</button>
 
-      <button class="calc-btn" onclick="append('1')">1</button>
-      <button class="calc-btn" onclick="append('2')">2</button>
-      <button class="calc-btn" onclick="append('3')">3</button>
-      <button class="calc-btn" onclick="append('-')">-</button>
+  <button class="calc-btn" onclick="append('4')">4</button>
+  <button class="calc-btn" onclick="append('5')">5</button>
+  <button class="calc-btn" onclick="append('6')">6</button>
+  <button class="calc-btn" onclick="append('+')">+</button>
 
-      <button class="calc-btn" onclick="append('0')">0</button>
-      <button class="calc-btn" onclick="append('.')">.</button>
-      <button class="calc-btn" onclick="calculate()">=</button>
-      <button class="calc-btn" onclick="append('+')">+</button>
-    </div>
+  <button class="calc-btn" onclick="append('1')">1</button>
+  <button class="calc-btn" onclick="append('2')">2</button>
+  <button class="calc-btn" onclick="append('3')">3</button>
+  <button class="calc-btn" onclick="calculate()">=</button>
+
+  <button class="calc-btn" onclick="append('0')" style="grid-column: span 4;">0</button>
+</div>
   </div>
 
   <!-- COMPOUND INTEREST MODE -->
@@ -181,6 +231,14 @@
       "Future Value: ₹ " + amount.toFixed(2);
   }
 
+  function clearDisplay() {
+  document.getElementById("display").value = "";
+}
+
+function backspace() {
+  let current = document.getElementById("display").value;
+  document.getElementById("display").value = current.slice(0, -1);
+}
   // CLOCK
   function updateClock() {
     const now = new Date();
