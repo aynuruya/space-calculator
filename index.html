@@ -1,290 +1,326 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Noor's Cosmic Control Panel</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Segoe UI', sans-serif;
-      background: black;
-      color: white;
-    }
+<title>Noor's Cosmic Calculator</title>
 
-    canvas {
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 0;
-    }
+<style>
 
-    .container {
-      position: relative;
-      z-index: 2;
-      background: rgba(15, 15, 30, 0.9);
-      padding: 25px;
-      border-radius: 25px;
-      box-shadow: 0 0 60px rgba(0, 255, 255, 0.4);
-      backdrop-filter: blur(10px);
-      width: 350px;
-    }
-
-    .clock {
-      text-align: center;
-      font-size: 18px;
-      margin-bottom: 10px;
-      color: #00f7ff;
-    }
-
-    .mode-buttons {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .mode-buttons button {
-      margin: 5px;
-      padding: 8px 12px;
-      border-radius: 10px;
-      border: none;
-      background: #1c1c2b;
-      color: white;
-      cursor: pointer;
-    }
-
-    .saturn {
-  position: absolute;
-  top: 15%;
-  left: 8%;
-  width: 140px;
-  height: 140px;
-  background: radial-gradient(circle at 30% 30%, #f4c27a, #a97142 60%, #5a3b1f);
-  border-radius: 50%;
-  box-shadow: 
-    inset -20px -20px 40px rgba(0,0,0,0.6),
-    0 0 60px rgba(255, 200, 150, 0.6);
-  animation: float 6s ease-in-out infinite;
+body{
+margin:0;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Segoe UI',sans-serif;
+background:black;
+color:white;
 }
 
-.saturn::after {
-  content: "";
-  position: absolute;
-  width: 200px;
-  height: 60px;
-  border-radius: 50%;
-  top: 45px;
-  left: -30px;
-  background: radial-gradient(circle, rgba(255,255,255,0.4), rgba(200,150,100,0.3));
-  transform: rotate(25deg);
-  opacity: 0.6;
+canvas{
+position:absolute;
+top:0;
+left:0;
+z-index:0;
 }
 
-.moon {
-  position: absolute;
-  bottom: 18%;
-  right: 12%;
-  width: 80px;
-  height: 80px;
-  background: radial-gradient(circle at 30% 30%, #ffffff, #cccccc 60%, #888888);
-  border-radius: 50%;
-  box-shadow:
-    inset -10px -10px 20px rgba(0,0,0,0.4),
-    0 0 30px rgba(255,255,255,0.5);
-  animation: drift 12s linear infinite;
+.container{
+position:relative;
+z-index:2;
+background:rgba(10,10,30,0.9);
+padding:25px;
+border-radius:25px;
+box-shadow:0 0 60px rgba(0,255,255,0.4);
+backdrop-filter:blur(12px);
+width:340px;
 }
 
-@keyframes float {
-  0%,100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+.clock{
+text-align:center;
+font-size:18px;
+color:#00f7ff;
+margin-bottom:10px;
 }
 
-@keyframes drift {
-  0% { transform: translateX(0px); }
-  50% { transform: translateX(-40px); }
-  100% { transform: translateX(0px); }
+.mode-buttons{
+text-align:center;
+margin-bottom:15px;
 }
-    
-    input {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 10px;
-      border-radius: 10px;
-      border: none;
-      background: black;
-      color: #00f7ff;
-      text-align: right;
-    }
 
-    .buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-    }
+.mode-buttons button{
+margin:5px;
+padding:8px 12px;
+border:none;
+border-radius:10px;
+background:#1c1c2b;
+color:white;
+cursor:pointer;
+}
 
-    button.calc-btn {
-      padding: 12px;
-      border-radius: 10px;
-      border: none;
-      background: #1c1c2b;
-      color: white;
-      cursor: pointer;
-    }
+.mode-buttons button:hover{
+background:#00f7ff;
+color:black;
+}
 
-    button.calc-btn:hover {
-      background: #00f7ff;
-      color: black;
-    }
+input{
+width:100%;
+padding:10px;
+margin-bottom:10px;
+border-radius:10px;
+border:none;
+background:black;
+color:#00f7ff;
+text-align:right;
+font-size:18px;
+}
 
-    .hidden {
-      display: none;
-    }
+.buttons{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:10px;
+}
 
-    .result {
-      text-align: center;
-      margin-top: 10px;
-      color: #ff00c8;
-    }
-  </style>
+button.calc-btn{
+padding:12px;
+border:none;
+border-radius:10px;
+background:#1c1c2b;
+color:white;
+cursor:pointer;
+font-size:16px;
+}
+
+button.calc-btn:hover{
+background:#00f7ff;
+color:black;
+}
+
+.hidden{
+display:none;
+}
+
+.result{
+text-align:center;
+margin-top:10px;
+color:#ff00c8;
+font-size:16px;
+}
+
+.saturn{
+position:absolute;
+top:12%;
+left:8%;
+width:140px;
+height:140px;
+background:radial-gradient(circle at 30% 30%,#f4c27a,#a97142 60%,#5a3b1f);
+border-radius:50%;
+box-shadow:
+inset -20px -20px 40px rgba(0,0,0,0.6),
+0 0 60px rgba(255,200,150,0.6);
+animation:float 6s ease-in-out infinite;
+}
+
+.saturn::after{
+content:"";
+position:absolute;
+width:200px;
+height:60px;
+border-radius:50%;
+top:45px;
+left:-30px;
+background:radial-gradient(circle,rgba(255,255,255,0.4),rgba(200,150,100,0.3));
+transform:rotate(25deg);
+opacity:0.6;
+}
+
+.moon{
+position:absolute;
+bottom:18%;
+right:12%;
+width:80px;
+height:80px;
+background:radial-gradient(circle at 30% 30%,#ffffff,#cccccc 60%,#888888);
+border-radius:50%;
+box-shadow:
+inset -10px -10px 20px rgba(0,0,0,0.4),
+0 0 30px rgba(255,255,255,0.5);
+animation:drift 12s linear infinite;
+}
+
+@keyframes float{
+0%,100%{transform:translateY(0px)}
+50%{transform:translateY(-20px)}
+}
+
+@keyframes drift{
+0%{transform:translateX(0)}
+50%{transform:translateX(-40px)}
+100%{transform:translateX(0)}
+}
+
+</style>
 </head>
+
 <body>
 
 <canvas id="stars"></canvas>
+
 <div class="saturn"></div>
 <div class="moon"></div>
+
 <div class="container">
 
-  <div class="clock" id="clock"></div>
+<div class="clock" id="clock"></div>
 
-  <div class="mode-buttons">
-    <button onclick="showCalc()">Calculator</button>
-    <button onclick="showCompound()">Compound 💸</button>
-  </div>
-
-  <!-- NORMAL CALCULATOR -->
-  <div id="calcMode">
-    <input type="text" id="display" disabled>
-   <div class="buttons">
-  <button class="calc-btn" onclick="clearDisplay()">C</button>
-  <button class="calc-btn" onclick="backspace()">⌫</button>
-  <button class="calc-btn" onclick="append('/')">/</button>
-  <button class="calc-btn" onclick="append('*')">*</button>
-
-  <button class="calc-btn" onclick="append('7')">7</button>
-  <button class="calc-btn" onclick="append('8')">8</button>
-  <button class="calc-btn" onclick="append('9')">9</button>
-  <button class="calc-btn" onclick="append('-')">-</button>
-
-  <button class="calc-btn" onclick="append('4')">4</button>
-  <button class="calc-btn" onclick="append('5')">5</button>
-  <button class="calc-btn" onclick="append('6')">6</button>
-  <button class="calc-btn" onclick="append('+')">+</button>
-
-  <button class="calc-btn" onclick="append('1')">1</button>
-  <button class="calc-btn" onclick="append('2')">2</button>
-  <button class="calc-btn" onclick="append('3')">3</button>
-  <button class="calc-btn" onclick="calculate()">=</button>
-
-  <button class="calc-btn" onclick="append('0')" style="grid-column: span 4;">0</button>
+<div class="mode-buttons">
+<button onclick="showCalc()">Calculator</button>
+<button onclick="showCompound()">Compound 💸</button>
 </div>
-  </div>
 
-  <!-- COMPOUND INTEREST MODE -->
-  <div id="compoundMode" class="hidden">
-    <input type="number" id="principal" placeholder="Principal (₹)">
-    <input type="number" id="rate" placeholder="Annual Rate (%)">
-    <input type="number" id="years" placeholder="Years">
-    <button onclick="calculateCompound()">Calculate Growth 🚀</button>
-    <div class="result" id="compoundResult"></div>
-  </div>
+<div id="calcMode">
+
+<input type="text" id="display" disabled>
+
+<div class="buttons">
+
+<button class="calc-btn" onclick="clearDisplay()">C</button>
+<button class="calc-btn" onclick="backspace()">⌫</button>
+<button class="calc-btn" onclick="append('/')">÷</button>
+<button class="calc-btn" onclick="append('*')">×</button>
+
+<button class="calc-btn" onclick="append('7')">7</button>
+<button class="calc-btn" onclick="append('8')">8</button>
+<button class="calc-btn" onclick="append('9')">9</button>
+<button class="calc-btn" onclick="append('-')">-</button>
+
+<button class="calc-btn" onclick="append('4')">4</button>
+<button class="calc-btn" onclick="append('5')">5</button>
+<button class="calc-btn" onclick="append('6')">6</button>
+<button class="calc-btn" onclick="append('+')">+</button>
+
+<button class="calc-btn" onclick="append('1')">1</button>
+<button class="calc-btn" onclick="append('2')">2</button>
+<button class="calc-btn" onclick="append('3')">3</button>
+<button class="calc-btn" onclick="calculate()">=</button>
+
+<button class="calc-btn" onclick="append('0')" style="grid-column:span 2;">0</button>
+<button class="calc-btn" onclick="append('.')">.</button>
+
+</div>
+</div>
+
+<div id="compoundMode" class="hidden">
+
+<input type="number" id="principal" placeholder="Principal (₹)">
+<input type="number" id="rate" placeholder="Annual Rate (%)">
+<input type="number" id="years" placeholder="Years">
+
+<button class="calc-btn" onclick="calculateCompound()">Calculate 🚀</button>
+
+<div class="result" id="compoundResult"></div>
+
+</div>
 
 </div>
 
 <script>
-  function append(value) {
-    document.getElementById("display").value += value;
-  }
 
-  function calculate() {
-    try {
-      document.getElementById("display").value =
-        eval(document.getElementById("display").value);
-    } catch {
-      document.getElementById("display").value = "Error";
-    }
-  }
-
-  function showCalc() {
-    document.getElementById("calcMode").classList.remove("hidden");
-    document.getElementById("compoundMode").classList.add("hidden");
-  }
-
-  function showCompound() {
-    document.getElementById("calcMode").classList.add("hidden");
-    document.getElementById("compoundMode").classList.remove("hidden");
-  }
-
-  function calculateCompound() {
-    let p = parseFloat(document.getElementById("principal").value);
-    let r = parseFloat(document.getElementById("rate").value) / 100;
-    let t = parseFloat(document.getElementById("years").value);
-
-    let amount = p * Math.pow((1 + r), t);
-    document.getElementById("compoundResult").innerHTML =
-      "Future Value: ₹ " + amount.toFixed(2);
-  }
-
-  function clearDisplay() {
-  document.getElementById("display").value = "";
+function append(value){
+document.getElementById("display").value+=value
 }
 
-function backspace() {
-  let current = document.getElementById("display").value;
-  document.getElementById("display").value = current.slice(0, -1);
+function calculate(){
+try{
+document.getElementById("display").value=
+eval(document.getElementById("display").value)
+}catch{
+document.getElementById("display").value="Error"
 }
-  // CLOCK
-  function updateClock() {
-    const now = new Date();
-    document.getElementById("clock").innerHTML =
-      now.toLocaleTimeString();
-  }
-  setInterval(updateClock, 1000);
-  updateClock();
+}
 
-  // STAR BACKGROUND
-  const canvas = document.getElementById("stars");
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+function clearDisplay(){
+document.getElementById("display").value=""
+}
 
-  const stars = [];
-  for (let i = 0; i < 200; i++) {
-    stars.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      radius: Math.random() * 1.5,
-      speed: Math.random() * 0.5
-    });
-  }
+function backspace(){
+let current=document.getElementById("display").value
+document.getElementById("display").value=current.slice(0,-1)
+}
 
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "white";
+function showCalc(){
+document.getElementById("calcMode").classList.remove("hidden")
+document.getElementById("compoundMode").classList.add("hidden")
+}
 
-    stars.forEach(star => {
-      ctx.beginPath();
-      ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-      ctx.fill();
-      star.y += star.speed;
-      if (star.y > canvas.height) star.y = 0;
-    });
+function showCompound(){
+document.getElementById("calcMode").classList.add("hidden")
+document.getElementById("compoundMode").classList.remove("hidden")
+}
 
-    requestAnimationFrame(animate);
-  }
+function calculateCompound(){
 
-  animate();
+let p=parseFloat(document.getElementById("principal").value)
+let r=parseFloat(document.getElementById("rate").value)/100
+let t=parseFloat(document.getElementById("years").value)
+
+let amount=p*Math.pow((1+r),t)
+
+document.getElementById("compoundResult").innerHTML=
+"Future Value: ₹ "+amount.toFixed(2)
+
+}
+
+function updateClock(){
+const now=new Date()
+document.getElementById("clock").innerHTML=
+now.toLocaleTimeString()
+}
+
+setInterval(updateClock,1000)
+updateClock()
+
+const canvas=document.getElementById("stars")
+const ctx=canvas.getContext("2d")
+
+canvas.width=window.innerWidth
+canvas.height=window.innerHeight
+
+const stars=[]
+
+for(let i=0;i<300;i++){
+stars.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+radius:Math.random()*1.5,
+speed:Math.random()*0.4
+})
+}
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height)
+ctx.fillStyle="white"
+
+stars.forEach(star=>{
+
+ctx.beginPath()
+ctx.arc(star.x,star.y,star.radius,0,Math.PI*2)
+ctx.fill()
+
+star.y+=star.speed
+
+if(star.y>canvas.height){
+star.y=0
+}
+
+})
+
+requestAnimationFrame(animate)
+
+}
+
+animate()
+
 </script>
 
 </body>
