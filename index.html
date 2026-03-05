@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Noor's Cosmic Calculator</title>
+<title>Noor's Cosmic Finance Dashboard</title>
 
 <style>
 
@@ -17,12 +17,16 @@ background:black;
 color:white;
 }
 
+/* STAR CANVAS */
+
 canvas{
 position:absolute;
 top:0;
 left:0;
 z-index:0;
 }
+
+/* MAIN PANEL */
 
 .container{
 position:relative;
@@ -35,12 +39,16 @@ backdrop-filter:blur(12px);
 width:340px;
 }
 
+/* CLOCK */
+
 .clock{
 text-align:center;
 font-size:18px;
 color:#00f7ff;
 margin-bottom:10px;
 }
+
+/* MODE BUTTONS */
 
 .mode-buttons{
 text-align:center;
@@ -62,6 +70,8 @@ background:#00f7ff;
 color:black;
 }
 
+/* INPUT */
+
 input{
 width:100%;
 padding:10px;
@@ -73,6 +83,8 @@ color:#00f7ff;
 text-align:right;
 font-size:18px;
 }
+
+/* CALCULATOR GRID */
 
 .buttons{
 display:grid;
@@ -105,6 +117,8 @@ margin-top:10px;
 color:#ff00c8;
 font-size:16px;
 }
+
+/* PLANETS */
 
 .saturn{
 position:absolute;
@@ -191,7 +205,7 @@ animation:drift 12s linear infinite;
 <button class="calc-btn" onclick="append('7')">7</button>
 <button class="calc-btn" onclick="append('8')">8</button>
 <button class="calc-btn" onclick="append('9')">9</button>
-<button class="calc-btn" onclick="append('-')">-</button>
+<button class="calc-btn" onclick="append('-')">−</button>
 
 <button class="calc-btn" onclick="append('4')">4</button>
 <button class="calc-btn" onclick="append('5')">5</button>
@@ -207,6 +221,7 @@ animation:drift 12s linear infinite;
 <button class="calc-btn" onclick="append('.')">.</button>
 
 </div>
+
 </div>
 
 <div id="compoundMode" class="hidden">
@@ -224,6 +239,8 @@ animation:drift 12s linear infinite;
 </div>
 
 <script>
+
+/* CALCULATOR */
 
 function append(value){
 document.getElementById("display").value+=value
@@ -247,6 +264,8 @@ let current=document.getElementById("display").value
 document.getElementById("display").value=current.slice(0,-1)
 }
 
+/* MODES */
+
 function showCalc(){
 document.getElementById("calcMode").classList.remove("hidden")
 document.getElementById("compoundMode").classList.add("hidden")
@@ -256,6 +275,8 @@ function showCompound(){
 document.getElementById("calcMode").classList.add("hidden")
 document.getElementById("compoundMode").classList.remove("hidden")
 }
+
+/* COMPOUND */
 
 function calculateCompound(){
 
@@ -270,6 +291,8 @@ document.getElementById("compoundResult").innerHTML=
 
 }
 
+/* CLOCK */
+
 function updateClock(){
 const now=new Date()
 document.getElementById("clock").innerHTML=
@@ -278,6 +301,8 @@ now.toLocaleTimeString()
 
 setInterval(updateClock,1000)
 updateClock()
+
+/* STARS */
 
 const canvas=document.getElementById("stars")
 const ctx=canvas.getContext("2d")
@@ -292,31 +317,57 @@ stars.push({
 x:Math.random()*canvas.width,
 y:Math.random()*canvas.height,
 radius:Math.random()*1.5,
-speed:Math.random()*0.4
+speed:Math.random()*0.5
 })
 }
+
+/* SHOOTING STARS */
+
+const meteors=[]
+
+function createMeteor(){
+meteors.push({
+x:Math.random()*canvas.width,
+y:0,
+length:80,
+speed:6
+})
+}
+
+setInterval(createMeteor,4000)
 
 function animate(){
 
 ctx.clearRect(0,0,canvas.width,canvas.height)
+
 ctx.fillStyle="white"
 
 stars.forEach(star=>{
-
 ctx.beginPath()
 ctx.arc(star.x,star.y,star.radius,0,Math.PI*2)
 ctx.fill()
 
 star.y+=star.speed
+if(star.y>canvas.height) star.y=0
+})
 
-if(star.y>canvas.height){
-star.y=0
+ctx.strokeStyle="white"
+
+meteors.forEach((m,i)=>{
+ctx.beginPath()
+ctx.moveTo(m.x,m.y)
+ctx.lineTo(m.x-40,m.y+80)
+ctx.stroke()
+
+m.y+=m.speed
+m.x-=m.speed
+
+if(m.y>canvas.height){
+meteors.splice(i,1)
 }
-
 })
 
 requestAnimationFrame(animate)
-
 }
 
 animate()
