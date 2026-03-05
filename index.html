@@ -1,199 +1,215 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Noor's Cosmic Finance Dashboard</title>
+
+<title>Noor's Cosmic Finance Console</title>
 
 <style>
 
 body{
 margin:0;
 height:100vh;
-overflow:hidden;
 display:flex;
 justify-content:center;
 align-items:center;
-font-family:'Segoe UI',sans-serif;
-background:black;
+font-family:Segoe UI;
+
+background:
+linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.9)),
+url("https://images.unsplash.com/photo-1462331940025-496dfbfc7564");
+
+background-size:cover;
+background-position:center;
 color:white;
-}
-
-/* STAR CANVAS */
-
-canvas{
-position:absolute;
-top:0;
-left:0;
-z-index:0;
 }
 
 /* MAIN PANEL */
 
 .container{
-position:relative;
-z-index:2;
-background:rgba(10,10,30,0.9);
-padding:25px;
+
+background:rgba(10,10,25,0.65);
+backdrop-filter:blur(20px);
+
+padding:30px;
+
 border-radius:25px;
-box-shadow:0 0 60px rgba(0,255,255,0.4);
-backdrop-filter:blur(12px);
-width:340px;
+
+width:360px;
+
+box-shadow:
+0 0 30px rgba(0,255,255,0.3),
+0 0 80px rgba(140,0,255,0.3);
+
 }
 
 /* CLOCK */
 
 .clock{
+
 text-align:center;
-font-size:18px;
-color:#00f7ff;
-margin-bottom:10px;
+font-size:20px;
+letter-spacing:2px;
+
+color:#00ffff;
+
+margin-bottom:15px;
+
+text-shadow:0 0 15px #00ffff;
+
 }
 
 /* MODE BUTTONS */
 
 .mode-buttons{
+
 text-align:center;
 margin-bottom:15px;
+
 }
 
 .mode-buttons button{
+
+padding:8px 14px;
+
 margin:5px;
-padding:8px 12px;
-border:none;
-border-radius:10px;
-background:#1c1c2b;
-color:white;
+
+border-radius:12px;
+
+border:1px solid rgba(255,255,255,0.1);
+
+background:rgba(20,20,40,0.6);
+
+color:#00ffff;
+
 cursor:pointer;
+
+transition:0.3s;
+
 }
 
 .mode-buttons button:hover{
-background:#00f7ff;
-color:black;
+
+box-shadow:
+0 0 10px #00ffff,
+0 0 25px #00ffff;
+
 }
 
-/* INPUT */
+/* DISPLAY */
 
 input{
+
 width:100%;
-padding:10px;
-margin-bottom:10px;
-border-radius:10px;
+
+padding:12px;
+
 border:none;
+
+border-radius:10px;
+
 background:black;
-color:#00f7ff;
+
+color:#00ffff;
+
+font-size:20px;
+
 text-align:right;
-font-size:18px;
+
+margin-bottom:15px;
+
+box-shadow:inset 0 0 10px #000;
+
 }
 
-/* CALCULATOR GRID */
+/* BUTTON GRID */
 
 .buttons{
+
 display:grid;
+
 grid-template-columns:repeat(4,1fr);
-gap:10px;
+
+gap:12px;
+
 }
 
-button.calc-btn{
-padding:12px;
-border:none;
-border-radius:10px;
-background:#1c1c2b;
+/* CALC BUTTON */
+
+.calc-btn{
+
+padding:14px;
+
+border-radius:12px;
+
+border:1px solid rgba(255,255,255,0.1);
+
+background:rgba(25,25,50,0.7);
+
 color:white;
-cursor:pointer;
+
 font-size:16px;
+
+cursor:pointer;
+
+transition:0.3s;
+
 }
 
-button.calc-btn:hover{
-background:#00f7ff;
-color:black;
+/* NEON HOVER */
+
+.calc-btn:hover{
+
+color:#00ffff;
+
+box-shadow:
+0 0 10px #00ffff,
+0 0 25px #00ffff,
+0 0 40px #00ffff;
+
 }
 
-.hidden{
-display:none;
-}
+/* RESULT */
 
 .result{
-text-align:center;
+
 margin-top:10px;
-color:#ff00c8;
-font-size:16px;
+
+text-align:center;
+
+color:#ff7bff;
+
+text-shadow:0 0 10px #ff7bff;
+
 }
 
-/* PLANETS */
+/* HIDDEN */
 
-.saturn{
-position:absolute;
-top:12%;
-left:8%;
-width:140px;
-height:140px;
-background:radial-gradient(circle at 30% 30%,#f4c27a,#a97142 60%,#5a3b1f);
-border-radius:50%;
-box-shadow:
-inset -20px -20px 40px rgba(0,0,0,0.6),
-0 0 60px rgba(255,200,150,0.6);
-animation:float 6s ease-in-out infinite;
-}
+.hidden{
 
-.saturn::after{
-content:"";
-position:absolute;
-width:200px;
-height:60px;
-border-radius:50%;
-top:45px;
-left:-30px;
-background:radial-gradient(circle,rgba(255,255,255,0.4),rgba(200,150,100,0.3));
-transform:rotate(25deg);
-opacity:0.6;
-}
+display:none;
 
-.moon{
-position:absolute;
-bottom:18%;
-right:12%;
-width:80px;
-height:80px;
-background:radial-gradient(circle at 30% 30%,#ffffff,#cccccc 60%,#888888);
-border-radius:50%;
-box-shadow:
-inset -10px -10px 20px rgba(0,0,0,0.4),
-0 0 30px rgba(255,255,255,0.5);
-animation:drift 12s linear infinite;
-}
-
-@keyframes float{
-0%,100%{transform:translateY(0px)}
-50%{transform:translateY(-20px)}
-}
-
-@keyframes drift{
-0%{transform:translateX(0)}
-50%{transform:translateX(-40px)}
-100%{transform:translateX(0)}
 }
 
 </style>
+
 </head>
 
 <body>
-
-<canvas id="stars"></canvas>
-
-<div class="saturn"></div>
-<div class="moon"></div>
 
 <div class="container">
 
 <div class="clock" id="clock"></div>
 
 <div class="mode-buttons">
+
 <button onclick="showCalc()">Calculator</button>
 <button onclick="showCompound()">Compound 💸</button>
+
 </div>
 
 <div id="calcMode">
 
-<input type="text" id="display" disabled>
+<input id="display" disabled>
 
 <div class="buttons">
 
@@ -226,11 +242,13 @@ animation:drift 12s linear infinite;
 
 <div id="compoundMode" class="hidden">
 
-<input type="number" id="principal" placeholder="Principal (₹)">
-<input type="number" id="rate" placeholder="Annual Rate (%)">
-<input type="number" id="years" placeholder="Years">
+<input id="principal" type="number" placeholder="Principal ₹">
 
-<button class="calc-btn" onclick="calculateCompound()">Calculate 🚀</button>
+<input id="rate" type="number" placeholder="Annual Rate %">
+
+<input id="years" type="number" placeholder="Years">
+
+<button class="calc-btn" onclick="calculateCompound()">Calculate Growth</button>
 
 <div class="result" id="compoundResult"></div>
 
@@ -242,15 +260,16 @@ animation:drift 12s linear infinite;
 
 /* CALCULATOR */
 
-function append(value){
-document.getElementById("display").value+=value
+function append(val){
+document.getElementById("display").value+=val
 }
 
 function calculate(){
 try{
 document.getElementById("display").value=
 eval(document.getElementById("display").value)
-}catch{
+}
+catch{
 document.getElementById("display").value="Error"
 }
 }
@@ -281,7 +300,9 @@ document.getElementById("compoundMode").classList.remove("hidden")
 function calculateCompound(){
 
 let p=parseFloat(document.getElementById("principal").value)
+
 let r=parseFloat(document.getElementById("rate").value)/100
+
 let t=parseFloat(document.getElementById("years").value)
 
 let amount=p*Math.pow((1+r),t)
@@ -294,83 +315,17 @@ document.getElementById("compoundResult").innerHTML=
 /* CLOCK */
 
 function updateClock(){
-const now=new Date()
+
+let now=new Date()
+
 document.getElementById("clock").innerHTML=
 now.toLocaleTimeString()
+
 }
 
 setInterval(updateClock,1000)
+
 updateClock()
-
-/* STARS */
-
-const canvas=document.getElementById("stars")
-const ctx=canvas.getContext("2d")
-
-canvas.width=window.innerWidth
-canvas.height=window.innerHeight
-
-const stars=[]
-
-for(let i=0;i<300;i++){
-stars.push({
-x:Math.random()*canvas.width,
-y:Math.random()*canvas.height,
-radius:Math.random()*1.5,
-speed:Math.random()*0.5
-})
-}
-
-/* SHOOTING STARS */
-
-const meteors=[]
-
-function createMeteor(){
-meteors.push({
-x:Math.random()*canvas.width,
-y:0,
-length:80,
-speed:6
-})
-}
-
-setInterval(createMeteor,4000)
-
-function animate(){
-
-ctx.clearRect(0,0,canvas.width,canvas.height)
-
-ctx.fillStyle="white"
-
-stars.forEach(star=>{
-ctx.beginPath()
-ctx.arc(star.x,star.y,star.radius,0,Math.PI*2)
-ctx.fill()
-
-star.y+=star.speed
-if(star.y>canvas.height) star.y=0
-})
-
-ctx.strokeStyle="white"
-
-meteors.forEach((m,i)=>{
-ctx.beginPath()
-ctx.moveTo(m.x,m.y)
-ctx.lineTo(m.x-40,m.y+80)
-ctx.stroke()
-
-m.y+=m.speed
-m.x-=m.speed
-
-if(m.y>canvas.height){
-meteors.splice(i,1)
-}
-})
-
-requestAnimationFrame(animate)
-}
-
-animate()
 
 </script>
 
