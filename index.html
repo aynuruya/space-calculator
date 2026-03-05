@@ -16,10 +16,11 @@ font-family:Segoe UI;
 
 background:
 linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.9)),
-url("https://images.unsplash.com/photo-1462331940025-496dfbfc7564");
+url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee");
 
 background-size:cover;
 background-position:center;
+animation: galaxyMove 120s linear infinite;
 color:white;
 }
 
@@ -27,7 +28,7 @@ color:white;
 
 .container{
 
-background:rgba(10,10,25,0.65);
+background:rgba(8,8,20,0.45);
 backdrop-filter:blur(20px);
 
 padding:30px;
@@ -152,6 +153,10 @@ font-size:16px;
 cursor:pointer;
 
 transition:0.3s;
+
+box-shadow:
+0 0 5px rgba(0,255,255,0.2),
+inset 0 0 5px rgba(255,255,255,0.05);
 
 }
 
@@ -331,3 +336,19 @@ updateClock()
 
 </body>
 </html>
+
+@keyframes galaxyMove {
+
+0%{
+background-position:0% 0%;
+}
+
+50%{
+background-position:50% 50%;
+}
+
+100%{
+background-position:0% 0%;
+}
+
+}
