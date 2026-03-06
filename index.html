@@ -14,6 +14,17 @@ justify-content:center;
 align-items:center;
 font-family:Segoe UI;
 
+background:
+linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.95)),
+url("https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001861/GSFC_20171208_Archive_e001861~orig.jpg");
+
+background-size:cover;
+background-position:center;
+animation: galaxyMove 120s linear infinite;
+color:white;
+}
+
+/* ⭐ stars layer */
 body::before{
 content:"";
 position:fixed;
@@ -30,20 +41,9 @@ background-size:120px 120px, 200px 200px;
 background-position:0 0, 60px 60px;
 
 opacity:0.15;
-
 animation:starsMove 200s linear infinite;
 
 pointer-events:none;
-}
-
-background:
-linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.95)),
-url("https://images-assets.nasa.gov/image/GSFC_20171208_Archive_e001861/GSFC_20171208_Archive_e001861~orig.jpg");
-
-background-size:cover;
-background-position:center;
-animation: galaxyMove 120s linear infinite;
-color:white;
 }
 
 /* MAIN PANEL */
@@ -225,6 +225,20 @@ transform:translateY(0px);
 
 to{
 transform:translateY(-2000px);
+}
+
+}
+
+@keyframes galaxyMove{
+
+from{
+background-position:center 0px;
+}
+
+to{
+background-position:center -800px;
+}
+
 }
 
 </style>
